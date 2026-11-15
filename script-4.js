@@ -1,0 +1,14 @@
+
+(function(){
+ const modal=document.getElementById('paid-interest-modal');
+ const frame=modal.querySelector('iframe');
+ let returnFocus=null;
+ modal.addEventListener('close',()=>{if(returnFocus?.isConnected)returnFocus.focus();returnFocus=null;});
+ document.querySelectorAll('.paid-interest').forEach(btn=>btn.addEventListener('click',()=>{
+   returnFocus=btn;
+   if(!frame.src)frame.src=frame.dataset.src;
+   if(!modal.open)modal.showModal();
+ }));
+ modal.querySelector('.registration-close').addEventListener('click',()=>modal.close());
+ modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
+})();
