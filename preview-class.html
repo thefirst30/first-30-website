@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Book the 9 December Preview | The First 30</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root { color-scheme: light; --ink: #1c2d24; --paper: #f4f6f4; --sage: #e2e8e2; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 Inter, Arial, sans-serif; }
+    a { color: inherit; text-underline-offset: .22em; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
+    header { border-bottom: 1px solid #1c2d2426; }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; }
+    .brand, h1 { font-family: "Cormorant Garamond", Georgia, serif; }
+    .brand { font-size: 1.65rem; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
+    .home, .direct { font-size: .875rem; }
+    main { padding-block: clamp(2rem, 5vw, 4rem); }
+    .intro { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -.035em; margin: 0 0 .8rem; }
+    .details { margin: 0 0 1rem; }
+    .direct { font-weight: 600; }
+    .bookamat-embed { width: 100%; border: 1px solid #1c2d2426; background: white; }
+    .bookamat-embed iframe { display: block; width: 100%; min-height: 760px; border: 0; scroll-margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="https://thefirst30.com.au/">The First 30</a>
+      <a class="home" href="https://thefirst30.com.au/">Back to home</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="intro">
+      <h1>Book your free preview</h1>
+      <p class="details">Wednesday 9 December · 180 George Street, Sydney</p>
+      <a class="direct" href="https://bookamat.co/share/96f95fb4-2657-4181-ae0d-9eee0971493e/book/activity/1506558">Open the 9 December class in Bookamat ↗</a>
+    </div>
+    <div class="bookamat-embed">
+      <iframe
+        data-bookamat-embed
+        src="https://bookamat.co/embed/the-first-30?days=30"
+        title="The First 30 booking schedule"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="clipboard-write"
+      ></iframe>
+    </div>
+  </main>
+  <script>
+    const iframe = document.querySelector('[data-bookamat-embed]');
+    const bookamatOrigin = new URL(iframe.src).origin;
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== bookamatOrigin || event.source !== iframe.contentWindow) return;
+
+      const data = event.data;
+      if (!data || data.source !== 'bookamat-embed') return;
+
+      if (data.type === 'resize' && Number.isFinite(data.height) && data.height > 0) {
+        iframe.style.height = Math.max(data.height, 760) + 'px';
+      }
+
+      if (data.type === 'navigation' && data.scroll) {
+        iframe.scrollIntoView({ block: 'start' });
+      }
+    });
+  </script>
+</body>
+</html>
