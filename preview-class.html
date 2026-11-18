@@ -25,7 +25,10 @@
     .direct:hover { background: #304739; }
     .direct:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
     .bookamat-embed { width: 100%; border: 1px solid #1c2d2426; background: white; }
-    .bookamat-embed iframe { display: block; width: 100%; height: 760px; border: 0; }
+    .bookamat-embed iframe { display: block; width: 100%; height: 1050px; border: 0; }
+    @media (max-width: 600px) {
+      .bookamat-embed iframe { height: 1250px; }
+    }
   </style>
 </head>
 <body>
@@ -51,22 +54,5 @@
       ></iframe>
     </div>
   </main>
-  <script>
-    const iframe = document.querySelector('[data-bookamat-embed]');
-    const bookamatOrigin = new URL(iframe.src).origin;
-
-    window.addEventListener('message', (event) => {
-      if (event.origin !== bookamatOrigin || event.source !== iframe.contentWindow) return;
-
-      const data = event.data;
-      if (!data || data.source !== 'bookamat-embed') return;
-
-      if (data.type === 'resize' && Number.isFinite(data.height) && data.height > 0) {
-        iframe.style.height = Math.ceil(data.height) + 'px';
-        iframe.setAttribute('scrolling', 'no');
-      }
-
-    });
-  </script>
 </body>
 </html>
