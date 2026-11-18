@@ -16,14 +16,14 @@
     header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; }
     .brand, h1 { font-family: "Cormorant Garamond", Georgia, serif; }
     .brand { font-size: 1.65rem; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
-    .home, .direct { font-size: .875rem; }
+    .home { font-size: .875rem; }
     main { padding-block: clamp(2rem, 5vw, 4rem); }
     .intro { text-align: center; margin-bottom: 2rem; }
     h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -.035em; margin: 0 0 .8rem; }
     .details { margin: 0 0 1rem; }
-    .direct { font-weight: 600; }
-    .bookamat-embed { width: 100%; border: 1px solid #1c2d2426; background: white; }
-    .bookamat-embed iframe { display: block; width: 100%; min-height: 760px; border: 0; scroll-margin-top: 16px; }
+    .direct { display: inline-block; padding: 13px 22px; border-radius: 3px; background: var(--ink); color: var(--paper); font-size: .875rem; font-weight: 700; text-decoration: none; }
+    .direct:hover { background: #304739; }
+    .direct:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
   </style>
 </head>
 <body>
@@ -37,36 +37,8 @@
     <div class="intro">
       <h1>Book your free preview</h1>
       <p class="details">Wednesday 9 December · 180 George Street, Sydney</p>
-      <a class="direct" href="https://bookamat.co/share/96f95fb4-2657-4181-ae0d-9eee0971493e/book/activity/1506558">Open the 9 December class in Bookamat ↗</a>
-    </div>
-    <div class="bookamat-embed">
-      <iframe
-        data-bookamat-embed
-        src="https://bookamat.co/embed/the-first-30?days=30"
-        title="The First 30 booking schedule"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allow="clipboard-write"
-      ></iframe>
+      <a class="direct" href="https://bookamat.co/share/96f95fb4-2657-4181-ae0d-9eee0971493e/book/activity/1506558">Claim my free spot ↗</a>
     </div>
   </main>
-  <script>
-    const iframe = document.querySelector('[data-bookamat-embed]');
-    const bookamatOrigin = new URL(iframe.src).origin;
-
-    window.addEventListener('message', (event) => {
-      if (event.origin !== bookamatOrigin || event.source !== iframe.contentWindow) return;
-
-      const data = event.data;
-      if (!data || data.source !== 'bookamat-embed') return;
-
-      if (data.type === 'resize' && Number.isFinite(data.height) && data.height > 0) {
-        iframe.style.height = Math.max(data.height, 760) + 'px';
-      }
-
-      if (data.type === 'navigation' && data.scroll) {
-        iframe.scrollIntoView({ block: 'start' });
-      }
-    });
-  </script>
 </body>
 </html>
