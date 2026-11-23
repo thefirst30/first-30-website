@@ -199,11 +199,7 @@ main { position: relative; }
       <div id="decline-confirmation" style="text-align:center" hidden>
         <h2 tabindex="-1">Thanks for letting me know!</h2>
         <button type="button" class="text-button" data-rsvp-back>Back</button>
-        <div id="decline-private">
-          <p>I appreciate you getting back to me.</p>
-          <p>Take care,<br>Christine</p>
-        </div>
-        <div id="decline-share" hidden>
+        <div id="decline-share">
           <p>Know someone who’d enjoy a 30-minute reset before work? Pass your invite along.</p>
           <div class="share">
             <p id="pass-message">Hey! I got invited to a private preview of The First 30 on Wed 9 Dec (7:45–8:15 am) in Sydney CBD. I can’t go, but I thought of you and wanted to pass the invite along. If you’re keen, RSVP here: https://thefirst30.com.au/free-preview/</p>
@@ -419,9 +415,6 @@ function connectRsvp(form, complete) {
 
 connectRsvp(byId('attend-form'), () => navigateRsvp('accepted'));
 connectRsvp(declineForm, () => {
-  const canShare = ['updates', 'other-times'].includes(response.value);
-  byId('decline-share').hidden = !canShare;
-  byId('decline-private').hidden = canShare;
   navigateRsvp('declined');
 });
 
