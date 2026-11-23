@@ -135,20 +135,25 @@ main { position: relative; }
 .actions #will-attend { width: 100%; min-height: 52px; font-size: 16px; }
 .actions #cant-make-it { align-self: center; color: var(--forest); font-size: 13px; text-underline-offset: 3px; }
 @media (max-width: 849px) {
-  #invitation:not(.rsvp-step) .actions {
+  #invitation:not(.rsvp-step) .details {
     position: fixed;
     z-index: 5;
     inset: auto 0 0;
     width: min(100%, 390px);
-    margin: 0 auto;
-    padding: 5px 14px calc(5px + env(safe-area-inset-bottom));
-    gap: 2px;
+    margin-inline: auto;
+    padding: 16px 14px calc(14px + env(safe-area-inset-bottom));
     background: white;
     box-shadow: 0 -5px 24px #183c3226;
   }
-  #invitation:not(.rsvp-step) .actions #will-attend { min-height: 44px; }
-  #invitation:not(.rsvp-step) .actions #cant-make-it { padding: 2px 0; line-height: 1.2; }
-  .studio-link { padding-bottom: calc(var(--rsvp-bar-height, 84px) + 24px); }
+  #invitation:not(.rsvp-step) .actions { margin: 16px 0 0; gap: 8px; }
+  #invitation.rsvp-compact:not(.rsvp-step) .details {
+    padding-block: 5px calc(5px + env(safe-area-inset-bottom));
+  }
+  #invitation.rsvp-compact:not(.rsvp-step) .details > :not(.actions) { display: none; }
+  #invitation.rsvp-compact:not(.rsvp-step) .actions { margin-top: 0; gap: 2px; }
+  #invitation.rsvp-compact:not(.rsvp-step) #will-attend { min-height: 44px; }
+  #invitation.rsvp-compact:not(.rsvp-step) #cant-make-it { padding: 2px 0; line-height: 1.2; }
+  .studio-link { padding-bottom: calc(var(--rsvp-bar-height, 260px) + 24px); }
   main:has(.rsvp-step, #accepted:not([hidden])) + .studio-link { padding-bottom: 24px; }
 }
 .studio-link a { color: inherit; text-underline-offset: 3px; }
@@ -292,7 +297,11 @@ function celebrateInvitation() {
   card.append(confetti);
   window.setTimeout(() => confetti.remove(), 1600);
 }
-const rsvpBar = invitation.querySelector('.actions');
+const rsvpBar = invitation.querySelector('.details');
+const compactRsvpOnScroll = () => invitation.classList.toggle('rsvp-compact', window.scrollY > 24);
+window.addEventListener('scroll', compactRsvpOnScroll, { passive: true });
+window.addEventListener('pageshow', compactRsvpOnScroll);
+compactRsvpOnScroll();
 const setRsvpBarHeight = () => {
   document.documentElement.style.setProperty('--rsvp-bar-height', rsvpBar.offsetHeight + 'px');
 };
