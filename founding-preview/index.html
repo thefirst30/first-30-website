@@ -101,7 +101,7 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
 .session-hint { margin: 19px auto 0; max-width: 390px; color: var(--paper); text-align: left; font-size: 14px; font-weight: 400; line-height: 1.5; }
 .invite-photo { display: block; width: 100%; max-width: 390px; height: clamp(120px, 17vw, 175px); margin: 22px auto 0; object-fit: cover; object-position: center 32%; border-radius: 3px; }
 @media (max-width: 849px) {
-  #invitation { padding-bottom: var(--rsvp-bar-height, 180px); }
+
   .rsvp-column { position: fixed; z-index: 5; inset: auto 0 0; width: min(100%, 390px); margin-inline: auto; max-height: 75vh; max-height: 75dvh; overflow-y: auto; background: white; box-shadow: 0 -5px 24px #183c3226; padding-bottom: env(safe-area-inset-bottom); }
   .rsvp-column .details { padding: 12px 14px; }
   .rsvp-column .wordmark { font-size: 32px; }
@@ -131,7 +131,14 @@ main { position: relative; }
 @media (max-width: 720px) { .invite-header .brand { font-size: 1.5rem; } }
 @media (min-width: 450px) { main { margin-top: 0; } }
 .message .founder-role { margin-top: 4px; font-size: 13px; color: var(--sage); }
-.studio-link { font-size: 13px; }
+.studio-link { margin: 0 auto; padding: 0 16px 24px; text-align: center; font-size: 12px; color: #52645a; }
+.actions { display: flex; flex-direction: column; gap: 12px; }
+.actions #will-attend { width: 100%; min-height: 52px; font-size: 16px; }
+.actions #cant-make-it { align-self: center; color: var(--forest); font-size: 13px; text-underline-offset: 3px; }
+@media (max-width: 849px) {
+  .studio-link { padding-bottom: calc(var(--rsvp-bar-height, 180px) + 24px); }
+  main:has(.rsvp-step, #accepted:not([hidden])) + .studio-link { padding-bottom: 24px; }
+}
 .studio-link a { color: inherit; text-underline-offset: 3px; }
 .rsvp-deadline, .rsvp-note { margin: 9px 0 0; font-size: 13px; line-height: 1.35; }
 .rsvp-deadline { font-style: italic; }
@@ -157,18 +164,17 @@ main { position: relative; }
       <div class="message">
         <p>I built The First 30 to give busy professionals a real morning reset before the stress of the day piles in.</p>
         <p><strong>Not passive meditation. Fitness for your mind.</strong></p>
-        <p>Science-backed, sensory, and guided in person at 180 George St. No getting changed, no sweating, and zero fake networking. Just 30 quiet minutes to regulate your nervous system and build sharper focus over time.</p>
+        <p>Science-backed, sensory, and guided in person at 180 George St, a 5-minute walk from Circular Quay or Wynyard. No getting changed, no sweating, no wellness clichés and zero fake networking. Just 30 quiet minutes to regulate your nervous system and build sharper focus for the day.</p>
         <p class="emphasis"><strong>Peak performance isn’t just about physical strength.<br>It’s mental conditioning, too.</strong></p>
         <p>Grab a complimentary seat for our Wednesday, 9 December preview before we open to the public in January. I’d love to welcome you in.</p>
         <p class="signature">Christine</p>
-        <p class="founder-role">Founder, The First 30</p>
+        <p class="founder-role">Founder, The First 30 · Mental Health Innovator &amp; Exited Tech Founder</p>
         <details class="session-hint" open>
           <summary>Inside the 30 minutes</summary>
           <p><strong>00–05 · Arrive &amp; Decompress</strong><br>Lock away devices in our timber acoustic sanctuary and settle in with a hot towel or cold essential oil wipe.</p>
           <p><strong>05–25 · The Guided Reset</strong><br>20 minutes of structured, beat-driven breathing, active focus intervals, and deliberate recovery—done right in your work clothes.</p>
           <p><strong>25–30 · The Shielding Ritual</strong><br>Write down your single priority for the day on heavy-stock card before stepping back to your desk.</p>
         </details>
-        <p class="studio-link"><a href="https://thefirst30.com.au/" target="_blank" rel="noopener">Explore the full studio &amp; science at thefirst30.com.au ↗</a></p>
       </div>
     </header>
     <div class="rsvp-column">
@@ -179,9 +185,9 @@ main { position: relative; }
       <p class="rsvp-deadline">Complimentary RSVPs close Monday, 7 Dec at 5:00 pm (or earlier if seats fill).</p>
       <div class="actions">
         <button type="button" id="will-attend" aria-expanded="false" aria-controls="attend">CLAIM FREE SEAT</button>
-        <button type="button" id="cant-make-it" aria-expanded="false" aria-controls="decline">CAN’T MAKE IT</button>
+        <a id="cant-make-it" href="#decline" aria-expanded="false" aria-controls="decline">Can’t make it but keep me updated</a>
       </div>
-      <p class="rsvp-note">Seats are limited to preserve space and silence. Preview guests receive priority access to January founding memberships.</p>
+      <p class="rsvp-note">Capped at 7 chairs to preserve space and silence. Preview guests receive priority access to January founding memberships.</p>
     </section>
     <section class="panel attend" id="attend" aria-label="Attendance RSVP" hidden>
       <div class="rule" aria-hidden="true"></div>
@@ -250,6 +256,7 @@ main { position: relative; }
     <button type="button" class="text-button" data-rsvp-back>Back</button>
   </section>
 </main>
+<footer class="studio-link"><a href="https://thefirst30.com.au/" target="_blank" rel="noopener">Explore the full studio &amp; science at thefirst30.com.au ↗</a></footer>
 <script>
 const byId = (id) => document.getElementById(id);
 const invitation = byId('invitation');
@@ -308,7 +315,10 @@ function selectBranch(branch) {
 }
 
 for (const branch of Object.keys(choices)) {
-  choices[branch].addEventListener('click', () => navigateRsvp(branch));
+  choices[branch].addEventListener('click', (event) => {
+    event.preventDefault();
+    navigateRsvp(branch);
+  });
 }
 
 function showResponseFields() {
