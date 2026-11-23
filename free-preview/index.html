@@ -198,7 +198,7 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
 <script>
 const byId = (id) => document.getElementById(id);
 const invitation = byId('invitation');
-const rsvpEndpoint = '';
+const rsvpEndpoint = 'https://script.google.com/a/macros/startupwithchristine.com/s/AKfycbzS0xMu3xWIeYDS08jpvy1mUJtgQMbczuErwrTlH8mnsBfSe1IYPMHgQ3kSfhhRbHUL/exec';
 const incomingReferral = new URLSearchParams(location.search).get('ref') || '';
 if (rsvpEndpoint) document.querySelector('.prototype-note').hidden = true;
 const panels = { attend: byId('attend'), decline: byId('decline') };
