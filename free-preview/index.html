@@ -154,6 +154,7 @@ main { position: relative; }
     </section>
     <section class="panel attend" id="attend" aria-label="Attendance RSVP" hidden>
       <div class="rule" aria-hidden="true"></div>
+      <button type="button" class="text-button" data-rsvp-back>Back</button>
       <form id="attend-form">
         <label class="field">Full name* <input id="attend-name" name="name" autocomplete="name" required></label>
         <label class="field">Email* <input name="email" type="email" autocomplete="email" required></label>
@@ -166,6 +167,7 @@ main { position: relative; }
     </section>
     <section class="panel" id="decline" aria-labelledby="decline-title" hidden>
       <div class="rule" aria-hidden="true"></div>
+      <button type="button" class="text-button" data-rsvp-back>Back</button>
       <form id="decline-form">
         <h2 id="decline-title">No worries at all</h2>
         <label class="field">What works best from here?
@@ -190,6 +192,7 @@ main { position: relative; }
       </form>
       <div id="decline-confirmation" style="text-align:center" hidden>
         <h2 tabindex="-1">Thanks for letting me know!</h2>
+        <button type="button" class="text-button" data-rsvp-back>Back</button>
         <div id="decline-private">
           <p>I appreciate you getting back to me.</p>
           <p>Take care,<br>Christine</p>
@@ -217,6 +220,7 @@ main { position: relative; }
       <button type="button" id="copy">Copy message</button>
       <p class="status" id="copy-status" role="status" hidden></p>
     </div>
+    <button type="button" class="text-button" data-rsvp-back>Back</button>
     <button type="button" class="text-button" id="continue">Continue</button>
   </section>
 
@@ -230,6 +234,7 @@ main { position: relative; }
     </div>
     <p>See you 9 December at 7:45 am!</p>
     <p class="confirmation-address">First floor, 180 George Street, Sydney CBD</p>
+    <button type="button" class="text-button" data-rsvp-back>Back</button>
   </section>
 </main>
 <script>
@@ -282,15 +287,15 @@ function selectBranch(branch) {
   byId('invitation-mark').src = branch === 'decline' ? 'data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijc1LjYiIGhlaWdodD0iNTIuNTE1IiB2aWV3Qm94PSIwIDAgNzUuNiA1Mi41MTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJtYXJrIj4KPHBhdGggaWQ9InJpbmciIGQ9Ik02My40NTAxIDI2LjI1NzVDNjMuNDUwMSAzMy4wNjAzIDYwLjc0NzYgMzkuNTg0NSA1NS45MzczIDQ0LjM5NDhDNTEuMTI3IDQ5LjIwNTEgNDQuNjAyOSA1MS45MDc1IDM3LjgwMDEgNTEuOTA3NUMzMC45OTcyIDUxLjkwNzUgMjQuNDczMSA0OS4yMDUxIDE5LjY2MjggNDQuMzk0OEMxNC44NTI1IDM5LjU4NDUgMTIuMTUgMzMuMDYwMyAxMi4xNSAyNi4yNTc1QzEyLjE1IDE5LjQ1NDcgMTQuODUyNSAxMi45MzA1IDE5LjY2MjggOC4xMjAyMUMyNC40NzMxIDMuMzA5OSAzMC45OTcyIDAuNjA3NSAzNy44MDAxIDAuNjA3NUM0NC42MDI5IDAuNjA3NSA1MS4xMjcgMy4zMDk5IDU1LjkzNzMgOC4xMjAyMUM2MC43NDc2IDEyLjkzMDUgNjMuNDUwMSAxOS40NTQ3IDYzLjQ1MDEgMjYuMjU3NVoiIHN0cm9rZS13aWR0aD0iMS4yMTUiIHN0cm9rZT0iI0Y0RjZGNCIvPgo8cGF0aCBpZD0iaG9yaXpvbiIgZD0iTTQuODgyODFlLTA1IDMwLjM2MTZINzUuNiIgc3Ryb2tlLXdpZHRoPSIxLjIxNSIgc3Ryb2tlPSIjRjRGNkY0Ii8+CjwvZz4KPC9zdmc+Cg==' : 'data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijc1LjYwMDIiIGhlaWdodD0iNTIuNTE1IiB2aWV3Qm94PSIwIDAgNzUuNjAwMiA1Mi41MTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJtYXJrIj4KPHBhdGggaWQ9InJpbmciIGQ9Ik02My40NSAyNi4yNTc1QzYzLjQ1IDMzLjA2MDMgNjAuNzQ3NiAzOS41ODQ1IDU1LjkzNzMgNDQuMzk0OEM1MS4xMjcgNDkuMjA1MSA0NC42MDI4IDUxLjkwNzUgMzcuOCA1MS45MDc1QzMwLjk5NzIgNTEuOTA3NSAyNC40NzMgNDkuMjA1MSAxOS42NjI3IDQ0LjM5NDhDMTQuODUyNCAzOS41ODQ1IDEyLjE1IDMzLjA2MDMgMTIuMTUgMjYuMjU3NUMxMi4xNSAxOS40NTQ3IDE0Ljg1MjQgMTIuOTMwNSAxOS42NjI3IDguMTIwMjFDMjQuNDczIDMuMzA5OSAzMC45OTcyIDAuNjA3NSAzNy44IDAuNjA3NUM0NC42MDI4IDAuNjA3NSA1MS4xMjcgMy4zMDk5IDU1LjkzNzMgOC4xMjAyMUM2MC43NDc2IDEyLjkzMDUgNjMuNDUgMTkuNDU0NyA2My40NSAyNi4yNTc1WiIgc3Ryb2tlLXdpZHRoPSIxLjIxNSIgc3Ryb2tlPSIjRjRGNkY0Ii8+CjxwYXRoIGlkPSJob3Jpem9uIiBkPSJNMCAzMC4zNjE2SDc1LjYiIHN0cm9rZS13aWR0aD0iMS4yMTUiIHN0cm9rZT0iI0Y0RjZGNCIvPgo8L2c+Cjwvc3ZnPgo=';
   if (branch === 'attend') {
     byId('attend-name').focus();
-  } else if (declineForm.hidden) {
+  } else if (branch === 'decline' && declineForm.hidden) {
     declineConfirmation.querySelector('h2').focus();
-  } else {
+  } else if (branch === 'decline') {
     response.focus();
   }
 }
 
 for (const branch of Object.keys(choices)) {
-  choices[branch].addEventListener('click', () => selectBranch(branch));
+  choices[branch].addEventListener('click', () => navigateRsvp(branch));
 }
 
 function showResponseFields() {
@@ -311,12 +316,39 @@ function showResponseFields() {
 response.addEventListener('change', showResponseFields);
 showResponseFields();
 
-function showScreen(previous, next) {
-  previous.hidden = true;
-  next.hidden = false;
-  window.scrollTo(0, 0);
-  next.querySelector('h2').focus({ preventScroll: true });
+let rsvpStep = 'invitation';
+history.replaceState({...history.state, rsvpStep}, '');
+
+function renderRsvp(step) {
+  rsvpStep = step;
+  const accepted = byId('accepted');
+  const done = byId('all-done');
+  accepted.hidden = step !== 'accepted';
+  done.hidden = step !== 'all-done';
+  invitation.hidden = !accepted.hidden || !done.hidden;
+
+  if (invitation.hidden) {
+    window.scrollTo(0, 0);
+    (accepted.hidden ? done : accepted).querySelector('h2').focus({ preventScroll: true });
+    return;
+  }
+  const confirmed = step === 'declined';
+  declineForm.hidden = confirmed;
+  declineConfirmation.hidden = !confirmed;
+  showResponseFields();
+  selectBranch(step === 'invitation' ? '' : confirmed ? 'decline' : step);
+  if (step === 'invitation') choices.attend.focus();
 }
+
+function navigateRsvp(step) {
+  if (step !== rsvpStep) history.pushState({...history.state, rsvpStep: step}, '');
+  renderRsvp(step);
+}
+
+window.addEventListener('popstate', (event) => renderRsvp(event.state?.rsvpStep || 'invitation'));
+document.querySelectorAll('[data-rsvp-back]').forEach((button) => {
+  button.addEventListener('click', () => history.back());
+});
 
 function connectRsvp(form, complete) {
   const feedback = form.querySelector('.form-error');
@@ -384,17 +416,15 @@ function connectRsvp(form, complete) {
   form.addEventListener('input', () => { feedback.textContent = ''; });
 }
 
-connectRsvp(byId('attend-form'), () => showScreen(invitation, byId('accepted')));
+connectRsvp(byId('attend-form'), () => navigateRsvp('accepted'));
 connectRsvp(declineForm, () => {
   const canShare = ['updates', 'other-times'].includes(response.value);
   byId('decline-share').hidden = !canShare;
   byId('decline-private').hidden = canShare;
-  declineForm.hidden = true;
-  declineConfirmation.hidden = false;
-  declineConfirmation.querySelector('h2').focus();
+  navigateRsvp('declined');
 });
 
-byId('continue').addEventListener('click', () => showScreen(byId('accepted'), byId('all-done')));
+byId('continue').addEventListener('click', () => navigateRsvp('all-done'));
 function connectCopy(buttonId, messageId, statusId) {
   const button = byId(buttonId);
   const message = byId(messageId);
