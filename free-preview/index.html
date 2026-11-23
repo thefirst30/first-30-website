@@ -2,6 +2,7 @@
 <html lang="en-AU">
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The First 30 · Opening preview</title>
@@ -85,6 +86,18 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
   .details { padding-top: 56px; }
   .completion { min-height: 620px; max-width: 520px; margin-inline: auto; }
 }
+.session-hint { margin: 24px auto 0; padding: 10px 14px; max-width: 390px; border-radius: 4px; background: #f8f4e4; color: var(--forest); text-align: left; font-size: 14px; font-weight: 400; line-height: 1.5; }
+.session-hint summary { cursor: pointer; font-weight: 700; }
+.session-hint p, .session-hint p + p { margin-top: 14px; }
+.confetti { position: absolute; top: 100%; left: 0; width: 100%; height: 96px; overflow: hidden; pointer-events: none; }
+.confetti span { position: absolute; top: 0; width: 6px; height: 9px; background: var(--color); animation: confetti-fall 1.15s var(--delay) ease-out both; }
+@keyframes confetti-fall {
+  from { transform: translateY(-12px) rotate(0); opacity: 0; }
+  18% { opacity: 1; }
+  to { transform: translate(var(--drift), 91px) rotate(260deg); opacity: 0; }
+}
+main { position: relative; }
+@media (prefers-reduced-motion: reduce) { .confetti { display: none; } }
 </style>
 </head>
 <body>
@@ -106,6 +119,13 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
         <p class="emphasis">Because ageing well is not just about physical strength.<br>It’s mental conditioning too.</p>
         <p>RSVP below and I hope to see you there.</p>
         <p class="signature">Christine</p>
+        <details class="session-hint">
+          <summary>Inside the 30 minutes</summary>
+          <p>Science-informed breathing and attention exercises, guided from a chair. Doors open 10 minutes early.</p>
+          <p><strong>00–05 · Settle in</strong><br>Put your phone away. Choose a warm towel or a cold eucalyptus wipe.</p>
+          <p><strong>05–25 · Find your focus</strong><br>Follow rounds of paced breathing and focus with spatial audio and light.</p>
+          <p><strong>25–30 · Take it with you</strong><br>Write your one priority for today on your Shield Card.</p>
+        </details>
       </div>
     </header>
     <div class="rsvp-column">
@@ -201,6 +221,26 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
 <script>
 const byId = (id) => document.getElementById(id);
 const invitation = byId('invitation');
+
+function celebrateInvitation() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const card = invitation.closest('main');
+  const confetti = document.createElement('div');
+  confetti.className = 'confetti';
+  confetti.setAttribute('aria-hidden', 'true');
+  const colors = ['#b08a61', '#789884', '#d1af7a', '#456d5a'];
+  for (let i = 0; i < 22; i += 1) {
+    const piece = document.createElement('span');
+    piece.style.left = (5 + Math.random() * 90) + '%';
+    piece.style.setProperty('--drift', (Math.random() * 46 - 23) + 'px');
+    piece.style.setProperty('--delay', (Math.random() * 0.32) + 's');
+    piece.style.setProperty('--color', colors[i % colors.length]);
+    confetti.append(piece);
+  }
+  card.append(confetti);
+  window.setTimeout(() => confetti.remove(), 1600);
+}
+celebrateInvitation();
 const rsvpEndpoint = 'https://script.google.com/a/macros/startupwithchristine.com/s/AKfycbzS0xMu3xWIeYDS08jpvy1mUJtgQMbczuErwrTlH8mnsBfSe1IYPMHgQ3kSfhhRbHUL/exec';
 const incomingReferral = new URLSearchParams(location.search).get('ref') || '';
 if (rsvpEndpoint) document.querySelector('.prototype-note').hidden = true;
@@ -243,7 +283,7 @@ function showResponseFields() {
   const help = {
     updates: 'For occasional First 30 updates and free passes. Opt out anytime.',
     'other-times': 'I’ll let you know when sessions are available at other times. Opt out anytime.',
-    'no-follow-up': 'Just your name, so I can note your preference for future invitations.'
+    'no-follow-up': 'Just your name so I know not to follow up about an RSVP.'
   };
   byId('decline-help').textContent = help[response.value] || '';
 }
