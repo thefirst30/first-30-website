@@ -69,6 +69,7 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
 .share { margin-top: 50px; padding: 20px 14px; background: var(--sage); border: 1px solid #30443a55; border-radius: 4px; }
 .share p { margin-bottom: 15px; font-size: 15px; overflow-wrap: anywhere; }
 .status { min-height: 1.25em; font-size: 13px; }
+[data-rsvp-back] { display: block; margin: 16px auto 0; }
 .text-button { border: 0; text-decoration: underline; }
 .prototype-note { padding: 10px 14px; background: var(--sage); color: var(--forest); text-align: center; font-size: 12px; }
 .decline-fields h3 { margin: 0 0 14px; font: 700 26px/1.15 var(--serif); }
@@ -160,7 +161,6 @@ main { position: relative; }
     </section>
     <section class="panel attend" id="attend" aria-label="Attendance RSVP" hidden>
       <div class="rule" aria-hidden="true"></div>
-      <button type="button" class="text-button" data-rsvp-back>Back</button>
       <form id="attend-form">
         <label class="field">Full name* <input id="attend-name" name="name" autocomplete="name" required></label>
         <label class="field">Email* <input name="email" type="email" autocomplete="email" required></label>
@@ -170,10 +170,10 @@ main { position: relative; }
         <p class="form-error" role="alert"></p>
         <button class="submit-gold" type="button">Lock in my spot</button>
       </form>
+      <button type="button" class="text-button" data-rsvp-back>Back</button>
     </section>
     <section class="panel" id="decline" aria-labelledby="decline-title" hidden>
       <div class="rule" aria-hidden="true"></div>
-      <button type="button" class="text-button" data-rsvp-back>Back</button>
       <form id="decline-form">
         <h2 id="decline-title">No worries at all</h2>
         <label class="field">What works best from here?
@@ -198,7 +198,6 @@ main { position: relative; }
       </form>
       <div id="decline-confirmation" style="text-align:center" hidden>
         <h2 tabindex="-1">Thanks for letting me know!</h2>
-        <button type="button" class="text-button" data-rsvp-back>Back</button>
         <div id="decline-share">
           <p>Know someone who’d enjoy a 30-minute reset before work? Pass your invite along.</p>
           <div class="share">
@@ -208,6 +207,7 @@ main { position: relative; }
           </div>
         </div>
       </div>
+      <button type="button" class="text-button" data-rsvp-back>Back</button>
     </section>
   </div>
   </div>
