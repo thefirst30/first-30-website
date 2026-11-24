@@ -382,3 +382,33 @@ h1,h2,h3,.brand { font-family:'Cormorant Garamond',Georgia,serif; font-weight:70
 #toolkit .science-interactive{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;background:#0d1119;border-radius:12px}
 #experience .step img[src*="guided-reset-sensory-cue"]{object-fit:cover;object-position:center 44%}
 @media(max-width:720px){#transformation .transform-card{padding:22px 20px;border-radius:11px}#transformation .transform-card .transform-head{grid-template-columns:1fr 1fr;gap:14px;font-size:clamp(1.2rem,4vw,1.55rem)}#transformation .transform-card .transform-row{display:grid;grid-template-columns:1fr;gap:7px;padding:20px 0}#transformation .transform-card .transform-row span{justify-self:start}#transformation .transform-card .transform-row p:last-child{padding-left:22px}#toolkit .science-interactive{aspect-ratio:4/3}}
+
+.comparison-scroll{overflow-x:auto;border:1px solid #1c2d2440;border-radius:3px}
+.comparison-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.morning-comparison{width:100%;min-width:670px;border-collapse:collapse;text-align:left;font-size:.92rem}
+.morning-comparison th,.morning-comparison td{padding:16px;vertical-align:top;border-bottom:1px solid #1c2d2426}
+.morning-comparison thead th{background:var(--ink);color:var(--paper)}
+.morning-comparison tbody tr:last-child>*{border-bottom:0}
+.morning-comparison tbody td:last-child{background:var(--sage);font-weight:700}
+@media(max-width:600px){.morning-comparison th,.morning-comparison td{padding:12px}}
+
+.methodology-points {padding-inline-start:1.2em}
+.methodology-points li + li {margin-top:.65em}
+.comparison-section > .wrap {max-width:1040px}
+.comparison-section .section-title,
+.workday-section .section-title {max-width:none;margin-inline:0;text-wrap:balance}
+.comparison-section .section-title {margin-top:0;margin-bottom:clamp(24px,3vw,42px)}
+.workday-section {background:var(--sage)}
+.workday-section .eyebrow {color:#65523d}
+.workday-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.5vw,24px);margin:clamp(24px,3vw,40px) 0 32px}
+.workday-card {padding:clamp(18px,2vw,30px);background:var(--paper);border:1px solid #1c2d2426;border-radius:3px}
+.workday-card h3 {font-size:clamp(1.5rem,2vw,2rem);margin:16px 0 8px}
+.workday-card p {font-size:.94rem}
+.workday-icon {display:grid;place-items:center;width:42px;height:42px;border:1px solid #1c2d2440;border-radius:50%}
+.workday-icon svg {width:22px;height:22px}
+.preview-pricing-line {background:var(--sage);padding-inline:clamp(14px,2vw,28px)}
+@media (max-width:1000px) {.workday-grid {grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px) {
+  .workday-grid {grid-template-columns:1fr}
+}
+@media (max-width:720px) {.preview-pricing-line .button {grid-column:1/-1}}
