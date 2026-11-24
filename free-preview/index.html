@@ -133,6 +133,9 @@ main { position: relative; }
 .message { max-width: 40ch; margin-inline: auto; text-align: left; line-height: 1.55; font-weight: 400; }
 .message .salutation { font: italic 500 26px/1.15 var(--serif); color: var(--sage); }
 .message .salutation + p { margin-top: 12px; }
+.message .invitation-points { margin: 20px 0; padding-inline-start: 1.2em; }
+.message .invitation-points li + li { margin-top: 10px; }
+.message .invitation-points li::marker { color: var(--gold); }
 .message .emphasis { margin-block:24px; border-inline-start:2px solid var(--gold); padding-inline-start:14px; }
 .message .emphasis p + p { margin-top:6px; }
 .message .invitation-callout { margin-block:24px; padding:clamp(16px,4vw,24px); border-radius:4px; background:var(--sage); color:var(--forest); }
@@ -192,15 +195,18 @@ main { position: relative; }
       <div class="message">
         <p class="salutation">To my fellow hard-working women:</p>
         <p>I built <strong>The First 30</strong> to give busy women who handle it all (that's us!) a real morning reset before the demands of the workday pile in.</p>
-        <p><strong>Not passive meditation. Mental fitness for the life you actually carry.</strong></p>
-        <p><strong>Science-backed, sensory, and guided in person</strong> at 180 George St—a 5-minute walk from Circular Quay or Wynyard.</p>
-        <p>No getting changed, no sweating, no wellness clichés, and zero fake networking.</p>
+        <ul class="invitation-points">
+          <li><strong>Not passive meditation. Mental fitness for the life you actually carry.</strong></li>
+          <li><strong>Science-backed, sensory, and guided in person</strong> at 180 George St—a 5-minute walk from Circular Quay or Wynyard.</li>
+          <li>No getting changed, no sweating, no wellness clichés, and zero fake networking.</li>
+        </ul>
         <p><strong>Just 30 quiet minutes</strong> to steady your nervous system, clear the brain fog, and build sharper composure for the next eight hours.</p>
         <div class="emphasis">
           <p>You spend all day holding everything together.</p>
           <p>Give yourself the first 30 minutes before the world asks anything of you.</p>
         </div>
         <div class="invitation-callout">
+          <p><strong>Join us for a complimentary preview on Wednesday Dec 9 at 7:45am</strong></p>
           <p><strong>No experience required, and nothing to get right.</strong> You just sit back in your chair, follow the audio cues, and let the room do the work.</p>
           <p>If you’ve been meaning to make space for yourself before the new year, <strong>Wednesday, 9 December is the only chance to experience it free</strong> before January memberships open.</p>
         </div>
