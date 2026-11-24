@@ -113,7 +113,7 @@ button:hover, .button:hover { box-shadow: inset 0 0 0 1px currentColor; }
   #invitation.rsvp-step .rsvp-column { min-height: 100dvh; }
 }
 .session-hint summary { cursor: pointer; width: fit-content; margin-inline: auto; font-weight: 500; }
-.session-hint[open] { background: var(--sage); color: var(--forest); padding: 14px 16px; border-radius: 4px; }
+.session-hint { background: var(--forest); border: 1px solid var(--paper); padding: 14px 16px; border-radius: 4px; }
 .session-hint[open] summary { margin-inline: 0; font-weight: 700; }
 .session-hint p, .session-hint p + p { margin-top: 14px; }
 .confetti { position: fixed; z-index: 6; bottom: 0; left: 50%; transform: translateX(-50%); width: min(100%, 960px); height: 96px; overflow: hidden; pointer-events: none; }
@@ -165,8 +165,11 @@ main { position: relative; }
   main:has(.rsvp-step, #accepted:not([hidden])) + .studio-link { padding-bottom: 24px; }
 }
 .studio-link a { color: inherit; text-underline-offset: 3px; }
-.rsvp-deadline, .rsvp-note { margin: 9px 0 0; font-size: 13px; line-height: 1.35; }
-.rsvp-deadline { font-style: italic; }
+.rsvp-deadline { margin: 9px 0 0; font-size: 13px; line-height: 1.35; text-wrap: balance; }
+.rsvp-note { max-width: 340px; margin: 14px auto 0; padding: 9px 12px; border-radius: 4px; background: var(--gold); color: #101d17; line-height: 1.35; }
+.rsvp-note strong, .rsvp-note small { display: block; }
+.rsvp-note strong { font-size: 15px; }
+.rsvp-note small { margin-top: 3px; font-size: 12px; }
 .actions #will-attend { background: var(--forest); color: var(--paper); }
 .actions #will-attend[aria-expanded="true"] { background: var(--selected); }
 </style>
@@ -199,8 +202,9 @@ main { position: relative; }
         </div>
         <div class="invitation-callout">
           <p><strong>No experience required, and nothing to get right.</strong> You just sit back in your chair, follow the audio cues, and let the room do the work.</p>
-          <p>If you’ve been meaning to make space for yourself before the new year, <strong>Wednesday, 9 December is the only chance to experience it free</strong> before January memberships open. I’d love to welcome you in.</p>
+          <p>If you’ve been meaning to make space for yourself before the new year, <strong>Wednesday, 9 December is the only chance to experience it free</strong> before January memberships open.</p>
         </div>
+        <p>I’d love to welcome you in.</p>
         <p class="signature">Christine</p>
         <p class="founder-role">Founder, The First 30 · Mental Health Innovator &amp; Exited Tech Founder</p>
         <details class="session-hint" open>
@@ -217,12 +221,12 @@ main { position: relative; }
       <p class="wordmark">The First 30</p>
       <p class="address">First Floor, 180 George Street, Sydney CBD<br><small>Sydney Place · 5 mins from Wynyard &amp; Circular Quay</small></p>
       <p class="when">Wed 9 Dec · 7:45–8:15 am · Free preview</p>
-      <p class="rsvp-deadline"><em>Complimentary RSVPs close Monday, 7 Dec at 5:00 pm (or earlier if seats fill).</em></p>
+      <p class="rsvp-deadline"><em>Complimentary RSVPs close Monday, 7 Dec at 5:00&nbsp;pm<br>(or earlier if seats fill).</em></p>
       <div class="actions">
         <button type="button" id="will-attend" aria-expanded="false" aria-controls="attend">Test It Free on 9 Dec</button>
         <a id="cant-make-it" href="#decline" aria-expanded="false" aria-controls="decline"><em>Can’t make it, but keep me updated</em></a>
       </div>
-      <p class="rsvp-note"><strong>7 seats left for the preview.</strong> Preview guests receive priority access to January founding memberships.</p>
+      <p class="rsvp-note"><strong>7 seats left for the preview.</strong> <small>Preview guests receive priority access to January founding memberships.</small></p>
     </section>
     <section class="panel attend" id="attend" aria-label="Attendance RSVP" hidden>
       <div class="rule" aria-hidden="true"></div>
