@@ -135,6 +135,8 @@ main { position: relative; }
 .message .salutation + p { margin-top: 12px; }
 .message .emphasis { margin-block:24px; border-inline-start:2px solid var(--gold); padding-inline-start:14px; }
 .message .emphasis p + p { margin-top:6px; }
+.message .invitation-callout { margin-block:24px; padding:clamp(16px,4vw,24px); border-radius:4px; background:var(--sage); color:var(--forest); }
+.message .invitation-callout p + p { margin-top:12px; }
 .message .founder-role { margin-top: 4px; font-size: 11px; color: var(--sage); }
 .studio-link { margin: 0 auto; padding: 0 16px 24px; text-align: center; font-size: 12px; color: #52645a; }
 .actions { display: flex; flex-direction: column; gap: 12px; }
@@ -195,8 +197,10 @@ main { position: relative; }
           <p>You spend all day holding everything together.</p>
           <p>Give yourself the first 30 minutes before the world asks anything of you.</p>
         </div>
-        <p><strong>No experience required, and nothing to get right.</strong> You just sit back in your chair, follow the audio cues, and let the room do the work.</p>
-        <p>If you’ve been meaning to make space for yourself before the new year, <strong>Wednesday, 9 December</strong> is the only chance to experience it free before January memberships open. I’d love to welcome you in.</p>
+        <div class="invitation-callout">
+          <p><strong>No experience required, and nothing to get right.</strong> You just sit back in your chair, follow the audio cues, and let the room do the work.</p>
+          <p>If you’ve been meaning to make space for yourself before the new year, <strong>Wednesday, 9 December is the only chance to experience it free</strong> before January memberships open. I’d love to welcome you in.</p>
+        </div>
         <p class="signature">Christine</p>
         <p class="founder-role">Founder, The First 30 · Mental Health Innovator &amp; Exited Tech Founder</p>
         <details class="session-hint" open>
