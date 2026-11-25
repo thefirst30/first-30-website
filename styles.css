@@ -406,9 +406,9 @@ h1,h2,h3,.brand { font-family:'Cormorant Garamond',Georgia,serif; font-weight:70
 .workday-card p {font-size:.94rem}
 .workday-icon {display:grid;place-items:center;width:42px;height:42px;border:1px solid #1c2d2440;border-radius:50%}
 .workday-icon svg {width:22px;height:22px}
-.preview-pricing-line {background:var(--sage);padding-inline:clamp(14px,2vw,28px)}
+.preview-pricing-line {grid-template-columns:minmax(0,1fr) auto;background:var(--sage);padding-inline:clamp(14px,2vw,28px)}
 @media (max-width:1000px) {.workday-grid {grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px) {
   .workday-grid {grid-template-columns:1fr}
 }
-@media (max-width:720px) {.preview-pricing-line .button {grid-column:1/-1}}
+@media (max-width:720px) {.preview-pricing-line {grid-template-columns:1fr}}
