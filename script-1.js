@@ -20,3 +20,14 @@ document.addEventListener('focusin',event=>{
     closeMenu();
   }
 });
+
+const introFilm = document.querySelector('#intro-film');
+const filmFallback = document.querySelector('#intro-film-fallback');
+
+function showFilmFallback() {
+  introFilm.replaceWith(filmFallback);
+  filmFallback.hidden = false;
+}
+
+introFilm.addEventListener('error', showFilmFallback, { once: true });
+if (introFilm.error || typeof introFilm.play !== 'function') showFilmFallback();
