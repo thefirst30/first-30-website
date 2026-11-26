@@ -501,3 +501,20 @@ footer .footer-research-disclaimer {flex:0 0 100%;font-size:.73rem;line-height:1
   #book .invitation-grid {grid-template-columns:1fr;gap:24px}
   #book .invitation-intro p:not(.eyebrow) {max-width:100%}
 }
+
+/* Standalone FAQs and closing invitation */
+#questions {padding-block:clamp(48px,5.5vw,84px)}
+#questions > .wrap {max-width:980px}
+#questions .faq h2 {margin:12px 0 24px;text-wrap:balance}
+#questions .faq details {padding:16px 0}
+#questions .faq summary {align-items:center;line-height:1.5}
+#questions .faq summary::-webkit-details-marker {display:none}
+#questions .faq details p {max-width:85ch;line-height:1.7;margin-top:10px}
+#questions .faq summary:focus-visible {outline:2px solid #617b68;outline-offset:5px}
+#final-cta.final-cta-band {padding-block:clamp(44px,5.2vw,76px);text-align:center}
+#final-cta .final-cta-band-inner {max-width:900px}
+#final-cta h2 {margin:12px 0 14px;text-wrap:balance}
+#final-cta .final-cta-band-subcopy {color:#d4ded5;margin-bottom:24px}
+#final-cta .button {width:min(100%,400px);padding:15px 22px}
+#final-cta .button:hover,#final-cta .button:focus-visible {background:var(--sage);color:var(--ink)}
+#final-cta .final-cta-band-note {font-size:.85rem;color:#c0cec2;margin-top:14px}
