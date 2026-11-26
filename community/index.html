@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c2d24">
+  <title>Future Events | The First 30</title>
+  <meta name="description" content="Sign up to hear about upcoming First 30 events and sessions in Sydney.">
+  <link rel="canonical" href="https://thefirst30.com.au/community/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The First 30">
+  <meta property="og:title" content="Future Events | The First 30">
+  <meta property="og:description" content="Sign up to hear about upcoming First 30 events and sessions in Sydney.">
+  <meta property="og:url" content="https://thefirst30.com.au/community/">
+  <meta property="og:image" content="https://thefirst30.com.au/assets/homepage-share-1200.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #1c2d24; color: #f4f6f4; font: 1rem/1.6 Inter, system-ui, sans-serif; }
+    main { width: min(100% - 2rem, 35rem); margin: clamp(2.5rem, 9vh, 7rem) auto; }
+    a { color: inherit; text-underline-offset: .2em; }
+    .brand { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; font-weight: 600; }
+    .brand img { width: 2rem; height: 2rem; }
+    h1 { margin: 1.5rem 0 .65rem; font: 600 clamp(2.65rem, 8vw, 4.45rem)/.98 "Cormorant Garamond", Georgia, serif; }
+    .intro { margin: 0 0 1.75rem; }
+    form { padding: clamp(1.15rem, 5vw, 2rem); background: #f4f6f4; color: #1c2d24; border-radius: .5rem; }
+    label { display: block; font-weight: 600; }
+    input, button { width: 100%; min-height: 3rem; font: inherit; border-radius: .25rem; }
+    input { display: block; margin: .3rem 0 1.1rem; padding: .55rem .7rem; border: 1px solid #6a776f; }
+    button { padding: .55rem 1rem; background: #1c2d24; color: #f4f6f4; border: 0; font-weight: 600; cursor: pointer; }
+    button:disabled { opacity: .65; cursor: wait; }
+    :focus-visible { outline: 2px solid #a37737; outline-offset: 3px; }
+    .note { font-size: .875rem; margin: .85rem 0 0; }
+    #error { color: #802b1f; margin-bottom: 0; }
+    #error:empty { margin: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="brand" href="/"><img src="/favicon.svg" alt="">The First 30</a>
+    <h1>Hear about future First 30 events</h1>
+    <p class="intro">Leave your details and we’ll email you when new sessions and events are announced in Sydney.</p>
+    <form id="signup" method="post" action="https://script.google.com/a/macros/startupwithchristine.com/s/AKfycbzS0xMu3xWIeYDS08jpvy1mUJtgQMbczuErwrTlH8mnsBfSe1IYPMHgQ3kSfhhRbHUL/exec">
+      <input type="hidden" name="response" value="updates">
+      <input type="hidden" name="source" value="community">
+      <label for="name">Name</label>
+      <input id="name" name="name" autocomplete="name" required maxlength="120">
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" autocomplete="email" required maxlength="254">
+      <button type="submit">Keep me updated</button>
+      <p class="note">By signing up, you agree to receive First 30 event updates by email. Unsubscribe anytime. <a href="/privacy/">Privacy policy</a></p>
+      <p id="error" role="alert"></p>
+    </form>
+    <section id="confirmation" hidden>
+      <h2 tabindex="-1">You’re on the list.</h2>
+      <p>We’ll email you when new First 30 events are announced.</p>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#signup');
+    const button = form.querySelector('button');
+    const error = document.querySelector('#error');
+    const confirmation = document.querySelector('#confirmation');
+    let previousDetails;
+    let submissionId;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (button.disabled) return;
+
+      const data = new URLSearchParams(new FormData(form));
+      data.set('name', data.get('name').trim());
+      if (!data.get('name')) {
+        error.textContent = 'Please enter your name.';
+        form.elements.name.focus();
+        return;
+      }
+      const details = data.toString();
+      if (details !== previousDetails) {
+        previousDetails = details;
+        submissionId = crypto.randomUUID();
+      }
+      data.set('submissionId', submissionId);
+      error.textContent = '';
+      button.disabled = true;
+      button.textContent = 'Signing you up…';
+
+      try {
+        const reply = await fetch(form.action, { method: 'POST', body: data, credentials: 'omit' });
+        if (!reply.ok || !(await reply.json()).ok) throw new Error('Signup was not saved');
+        form.reset();
+        form.hidden = true;
+        confirmation.hidden = false;
+        confirmation.querySelector('h2').focus();
+      } catch {
+        error.textContent = 'Your signup could not be confirmed. Please try again.';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Keep me updated';
+      }
+    });
+  </script>
+</body>
+</html>
