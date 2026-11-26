@@ -469,3 +469,35 @@ h1,h2,h3,.brand { font-family:'Cormorant Garamond',Georgia,serif; font-weight:70
   #toolkit .program-month {grid-template-columns:54px minmax(0,1fr);gap:12px}
   #toolkit .program-month-badge {min-height:52px}
 }
+
+/* Consolidated founding preview invitation */
+#space .space-copy > p:not(.eyebrow) + p {margin-top:14px}
+#book.invitation-section {background:var(--sage);padding-block:clamp(58px,6vw,94px)}
+#book .invitation-wrap {max-width:1120px}
+#book .invitation-grid {display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(24px,5vw,72px);align-items:center}
+#book .invitation-intro h2 {margin:12px 0 18px;text-wrap:balance}
+#book .invitation-intro p:not(.eyebrow) {max-width:42ch;line-height:1.7;font-size:1rem}
+#book .invitation-card {background:var(--paper);border:1px solid #1c2d2433;border-radius:3px;padding:clamp(22px,3vw,38px)}
+#book .invitation-card h3 {margin:8px 0 14px;font-size:clamp(2.1rem,3vw,3rem)}
+#book .invitation-details {font-size:.96rem;line-height:1.7}
+#book .invitation-details p {margin:4px 0}
+#book .invitation-inclusions {list-style:none;padding:15px 0 0;margin:16px 0 20px;border-top:1px solid #1c2d2433;display:grid;gap:7px;font-size:.89rem}
+#book .invitation-inclusions li {display:flex;align-items:baseline;gap:10px}
+#book .invitation-inclusions li::before {content:"✓";color:#617b68;font-weight:600}
+#book .invitation-card .button {width:100%;text-align:center}
+#book .invitation-pricing {border-top:1px solid #1c2d2433;margin-top:clamp(24px,4vw,42px);padding-top:24px;text-align:center}
+#book .invitation-prices {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px;margin:20px auto 0}
+#book .invitation-price {display:flex;flex-direction:column;gap:3px;align-items:center;padding:3px 8px}
+#book .invitation-price + .invitation-price {border-left:1px solid #1c2d2433}
+#book .invitation-price strong {font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,3.5vw,2.7rem);font-weight:700;line-height:1.15}
+#book .invitation-price span {font-size:.85rem;color:#4d6153}
+#book .invitation-priority {margin-top:24px;padding-top:20px;text-align:center;border-top:1px solid #1c2d2433}
+#book .invitation-priority p {margin-bottom:6px;font-weight:600}
+#book .invitation-priority a {text-decoration:underline;text-underline-offset:4px}
+#book .invitation-priority a:hover {color:#4b6653}
+footer {flex-wrap:wrap}
+footer .footer-research-disclaimer {flex:0 0 100%;font-size:.73rem;line-height:1.6;color:#596e60;max-width:100%;margin-top:4px}
+@media(max-width:800px) {
+  #book .invitation-grid {grid-template-columns:1fr;gap:24px}
+  #book .invitation-intro p:not(.eyebrow) {max-width:100%}
+}
