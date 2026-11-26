@@ -442,3 +442,30 @@ h1,h2,h3,.brand { font-family:'Cormorant Garamond',Georgia,serif; font-weight:70
   .science-practice p:not(.science-label) {max-width:60ch}
   .science-mark {width:42px;height:42px}
 }
+
+/* Q1 training programme — compact editorial layout */
+#toolkit.training-program-section {padding-block:clamp(56px,6vw,96px)}
+#toolkit .training-program-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"intro visual" "months visual" "footer visual";gap:0 clamp(32px,5vw,72px);align-items:start}
+#toolkit .training-program-copy {grid-area:intro}
+#toolkit .training-program-copy .eyebrow {margin-bottom:12px}
+#toolkit .training-program-copy h2 {margin:0 0 16px;text-wrap:balance}
+#toolkit .training-program-intro {color:#dce5dc;line-height:1.7}
+#toolkit .training-program-list {grid-area:months;margin-top:24px;border-top:1px solid #a2b3a459}
+#toolkit .program-month {display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;align-items:start;padding:17px 0;border-bottom:1px solid #a2b3a459}
+#toolkit .program-month-badge {display:grid;place-items:center;min-height:58px;background:#a2b3a41c;border:1px solid #a2b3a459;border-radius:3px;color:#e5c7a5;font-size:.82rem;font-weight:600;letter-spacing:.12em}
+#toolkit .program-month-date {color:#b8c7b9;font-size:.78rem;line-height:1.5}
+#toolkit .program-month h3 {font-size:clamp(1.5rem,2.1vw,1.95rem);margin:3px 0 6px;color:var(--paper)}
+#toolkit .program-month-description {font-size:.9rem;line-height:1.6;color:#dce5dc}
+#toolkit .program-month .source-link {font-size:.78rem;padding:0;margin-top:6px}
+#toolkit .training-program-footer {grid-area:footer;font-size:.9rem;line-height:1.65;color:#e5c7a5;margin-top:18px}
+#toolkit .training-program-visual {grid-area:visual;align-self:center;min-width:0}
+#toolkit .training-program-visual .caption {font-size:.72rem;line-height:1.55;letter-spacing:0;color:#d4ded5;opacity:.8;margin-top:12px}
+@media(max-width:900px) {
+  #toolkit .training-program-grid {grid-template-columns:1fr;grid-template-areas:"intro" "visual" "months" "footer";gap:0}
+  #toolkit .training-program-visual {margin-top:24px}
+  #toolkit .training-program-list {margin-top:24px}
+}
+@media(max-width:480px) {
+  #toolkit .program-month {grid-template-columns:54px minmax(0,1fr);gap:12px}
+  #toolkit .program-month-badge {min-height:52px}
+}
