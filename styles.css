@@ -411,3 +411,29 @@ h1,h2,h3,.brand { font-family:'Cormorant Garamond',Georgia,serif; font-weight:70
   .workday-grid {grid-template-columns:1fr}
 }
 @media (max-width:720px) {.preview-pricing-line {grid-template-columns:1fr}}
+
+/* Science: three research-informed practices */
+.science-section > .wrap {max-width:1120px}
+.science-section .section-title {max-width:100%;margin:12px 0 24px;text-wrap:balance}
+.science-section .science-intro {max-width:78ch}
+.science-intro p + p {margin-top:16px}
+.science-intro p,.science-practice p,.science-conclusion p {color:#42574a;line-height:1.75}
+.science-practices {margin:clamp(28px,4vw,48px) 0 0;border-top:1px solid #c5d0c5}
+.science-practice {display:grid;grid-template-columns:76px minmax(0,1fr);gap:clamp(18px,3vw,34px);align-items:start;padding:clamp(24px,3.2vw,38px) 0;border-bottom:1px solid #c5d0c5}
+.science-mark {width:68px;height:68px;color:#819887;display:grid;place-items:center}
+.science-mark svg {width:100%;height:100%;display:block}
+.science-practice .science-label {font-size:.73rem;letter-spacing:.13em;font-weight:600;color:#596e60;text-transform:uppercase;line-height:1.4}
+.science-practice h3 {font-size:clamp(1.8rem,2.4vw,2.35rem);margin:9px 0 12px}
+.science-practice p:not(.science-label) {max-width:78ch}
+.science-section .source-link {color:#42614e;padding:0;margin-top:12px;text-align:left;font-size:.92rem}
+.science-section .source-link:hover,.science-section .source-link:focus-visible {color:var(--ink)}
+.science-section .source-link:focus-visible {outline:2px solid #42614e;outline-offset:5px}
+.science-conclusion {padding:clamp(24px,3vw,38px) 0 0}
+.science-conclusion h3 {margin:0 0 14px;font-size:clamp(1.8rem,2.4vw,2.35rem)}
+.science-conclusion p {max-width:78ch}
+.science-conclusion .science-disclaimer {font-size:.8rem;color:#596e60;margin-top:24px;line-height:1.6}
+@media(max-width:600px) {
+  .science-practice {grid-template-columns:48px minmax(0,1fr);gap:15px}
+  .science-mark {width:46px;height:46px}
+  .science-practice h3 {margin-top:7px}
+}
