@@ -78,7 +78,11 @@
     start.addEventListener('submit', event => {
       event.preventDefault();
       if (!start.reportValidity()) return;
-      open(preferredSession, start.elements.email.value.trim(), start.querySelector('button'));
+      if (dialog.open || busy) return;
+      const address = start.elements.email.value.trim();
+      const lead = new URLSearchParams({email: address, response: 'incomplete', submissionId: crypto.randomUUID(), referredBy: incomingReferral});
+      fetch(endpoint, {method:'POST', body:lead, credentials:'omit', keepalive:true}).catch(() => {});
+      open(preferredSession, address, start.querySelector('button'));
     });
   });
   document.querySelectorAll('[data-rsvp-shortcut]').forEach(link => {
