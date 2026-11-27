@@ -570,32 +570,3 @@ footer .footer-research-disclaimer {flex:0 0 100%;font-size:.73rem;line-height:1
 #homepage-rsvp .rsvp-session-option strong {font-size:.9rem}
 #homepage-rsvp .rsvp-session-option small {display:block;font-size:.76rem;color:#516658;margin-top:3px}
 #homepage-rsvp .rsvp-email-fallback {display:block;font-size:.82rem;text-decoration:underline;margin-bottom:8px}
-
-/* Session 001: public training menu and practice */
-#training-method {background:#e2e8e2}
-#training-method .method-menu {max-width:1000px;margin:auto}
-.method-stats {display:grid;grid-template-columns:repeat(4,1fr);margin:28px 0;border-block:1px solid #1c2d2433;padding:18px 0;text-align:center}
-.method-stats strong {display:block;font:600 clamp(2rem,4vw,3.5rem)/1 'Cormorant Garamond',Georgia,serif}
-.method-stats span {font-size:.78rem}
-.method-rounds {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
-.method-round {border-bottom:1px solid #1c2d2433;padding:18px 0;display:grid;grid-template-columns:42px 1fr;gap:12px}
-.method-round .round-number {font-size:.8rem;color:#526758;padding-top:6px}
-.method-round h3 {margin:0;font-size:1.65rem;letter-spacing:.06em}
-.method-round p {margin:5px 0;font-size:.9rem;line-height:1.6}
-.method-round .round-skill {font-weight:600}
-.method-signoff {text-align:center;margin-top:26px}
-.method-signoff h3 {margin-top:12px}
-@media(min-width:1000px){.workday-grid {grid-template-columns:repeat(5,minmax(0,1fr))}}
-#toolkit .practice-cycle {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
-#toolkit .practice-cycle article {border-top:1px solid #a2b3a459;padding-top:12px}
-#toolkit .practice-cycle h3 {margin:0 0 5px;font-size:1.5rem}
-#toolkit .practice-cycle p {font-size:.88rem;color:#dce5dc;line-height:1.6}
-#toolkit .practice-record {background:#f4f6f4;color:#1c2d24;padding:clamp(22px,4vw,40px);border:1px solid #a2b3a4;border-radius:3px}
-#toolkit .practice-record h3 {font-size:2rem;margin:12px 0}
-#toolkit .practice-record .record-score {font:600 4rem/1 'Cormorant Garamond',Georgia,serif}
-#toolkit .practice-record p {font-size:.9rem;line-height:1.6}
-#toolkit .practice-record .caption {color:#526758;opacity:1}
-#research-links {padding-left:20px;font-size:.83rem;line-height:1.6}
-#research-links li {margin:8px 0}
-#research-links a {text-decoration:underline}
-@media(max-width:600px){.method-rounds {grid-template-columns:1fr}.method-round {grid-template-columns:32px 1fr}}
