@@ -14,6 +14,9 @@
   const phoneLabel = form.querySelector('.rsvp-phone-label');
   const help = form.querySelector('.rsvp-phone-help');
   const priorityConsent = form.querySelector('.rsvp-priority-consent');
+  const choices = form.querySelector('.rsvp-session-choices');
+  const phoneField = phone.closest('label');
+  const fallback = form.querySelector('.rsvp-email-fallback');
   const feedback = form.querySelector('[role=alert]');
   const success = dialog.querySelector('.rsvp-success');
   const successTitle = success.querySelector('h3');
@@ -23,31 +26,48 @@
   const copy = success.querySelector('.rsvp-copy');
   const incomingReferral = new URLSearchParams(location.search).get('ref') || '';
   let mode = 'attend', trigger, submissionId, busy = false, shareMessage = '';
+  function setMode(branch) {
+    mode = branch;
+    const attend = branch === 'attend';
+    const newsletter = branch === 'updates';
+    title.textContent = newsletter ? 'Stay in the loop.' : 'Make the first 30 yours.';
+    description.textContent = newsletter ? 'Occasional First 30 updates and free passes.' : 'Choose when you would like to experience The First 30.';
+    choices.hidden = newsletter;
+    choices.disabled = newsletter;
+    phoneField.hidden = newsletter;
+    phone.disabled = newsletter;
+    phone.required = attend;
+    phoneLabel.textContent = attend ? 'Phone number *' : 'Phone number (optional)';
+    help.hidden = newsletter;
+    help.textContent = attend ? 'For your 9 December door code and reminder.' : 'We’ll email you when January bookings open to arrange your complimentary session.';
+    optIn.hidden = newsletter;
+    form.elements.updates.disabled = newsletter;
+    priorityConsent.hidden = !newsletter;
+    submit.textContent = newsletter ? 'Join the newsletter' : attend ? 'Lock in my spot' : 'Claim my January pass';
+    feedback.textContent = '';
+    fallback.hidden = true;
+  }
   function open(branch, value, source) {
     if (dialog.open || busy) return;
-    mode = branch;
     trigger = source;
     submissionId = undefined;
     form.reset();
-    feedback.textContent = '';
     shareStatus.textContent = '';
     form.hidden = false;
     success.hidden = true;
     description.hidden = false;
-    const attend = branch === 'attend';
-    title.textContent = attend ? 'Make the first 30 yours.' : 'Stay in the loop.';
-    description.textContent = attend ? 'Wednesday 9 December · 7:45–8:15 am · Sydney CBD' : 'Join our January priority list.';
+    if (branch !== 'updates') form.elements.session.value = branch;
+    setMode(branch);
     email.value = value || '';
-    phone.required = attend;
-    phoneLabel.textContent = attend ? 'Phone number *' : 'Phone number (optional)';
-    help.hidden = !attend;
-    optIn.hidden = !attend;
-    form.elements.updates.disabled = !attend;
-    priorityConsent.hidden = attend;
-    submit.textContent = attend ? 'Lock in my spot' : 'Join the priority list';
     dialog.showModal();
     (email.value ? name : email).focus();
   }
+  choices.addEventListener('change', () => {
+    if (!busy && !choices.disabled) {
+      submissionId = undefined;
+      setMode(form.elements.session.value);
+    }
+  });
   document.querySelectorAll('.homepage-rsvp-start').forEach(start => {
     start.hidden = false;
     const fallback = start.previousElementSibling;
@@ -70,7 +90,13 @@
   const priority = document.querySelector('[data-rsvp-priority]');
   priority?.addEventListener('click', event => {
     event.preventDefault();
-    open('updates', '', priority);
+    open('january', '', priority);
+  });
+  document.querySelectorAll('[data-rsvp-newsletter]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      open('updates', '', link);
+    });
   });
   dialog.querySelectorAll('[data-rsvp-close]').forEach(button => button.addEventListener('click', () => {
     if (!busy) dialog.close();
@@ -87,6 +113,7 @@
       return;
     }
     busy = true;
+    choices.disabled = true;
     submit.disabled = true;
     const oldLabel = submit.textContent;
     submit.textContent = 'Saving…';
@@ -96,7 +123,8 @@
       const data = new URLSearchParams(new FormData(form));
       data.set('name', name.value.trim());
       data.set('email', email.value.trim());
-      data.set('phone', phone.value.trim());
+      data.set('phone', mode === 'updates' ? '' : phone.value.trim());
+      data.delete('session');
       data.set('response', mode);
       data.set('submissionId', submissionId);
       data.set('referredBy', incomingReferral);
@@ -105,12 +133,13 @@
       const result = await reply.json();
       if (!result.ok) throw new Error('Not saved');
       const attend = mode === 'attend';
+      const january = mode === 'january';
       form.hidden = true;
       description.hidden = true;
       success.hidden = false;
-      title.textContent = attend ? 'You’re in!' : 'You’re on the list.';
-      successTitle.textContent = attend ? 'See you on 9 December.' : 'We’ll keep you in the loop.';
-      successText.textContent = attend ? 'We’ll email you the details before the preview. Doors open at 7:35 am at First Floor, 180 George Street, Sydney CBD.' : 'Thanks for joining the January priority list. You can opt out anytime.';
+      title.textContent = attend ? 'You’re in!' : january ? 'Your January pass is yours.' : 'You’re on the list.';
+      successTitle.textContent = attend ? 'See you on 9 December.' : january ? 'Your first January session is complimentary.' : 'We’ll keep you in the loop.';
+      successText.textContent = attend ? 'We’ll email you the details before the preview. Doors open at 7:35 am at First Floor, 180 George Street, Sydney CBD.' : january ? 'We’ll email you when January bookings open so you can choose your session. No obligation to continue.' : 'Thanks for joining our newsletter. You can opt out anytime.';
       share.hidden = !attend;
       if (attend) {
         const link = new URL('/free-preview/',location.origin);
@@ -121,9 +150,12 @@
       form.reset();
       successTitle.focus();
     } catch {
-      feedback.textContent = 'We couldn’t confirm your RSVP. Please try again, or email hello@thefirst30.com.au.';
+      feedback.textContent = 'We couldn’t save your request. Please try again, or contact us by email.';
+      fallback.href = mode === 'january' ? 'mailto:hello@thefirst30.com.au?subject=Complimentary%20January%20pass' : mode === 'updates' ? 'mailto:hello@thefirst30.com.au?subject=Newsletter%20signup' : 'mailto:hello@thefirst30.com.au?subject=December%20preview%20RSVP';
+      fallback.hidden = false;
     } finally {
       busy = false;
+      choices.disabled = mode === 'updates';
       submit.disabled = false;
       submit.textContent = oldLabel;
     }
