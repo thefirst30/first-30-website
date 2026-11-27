@@ -23,8 +23,11 @@
   const successText = success.querySelector('.rsvp-success-text');
   const share = success.querySelector('.rsvp-share');
   const shareStatus = success.querySelector('.rsvp-share-status');
+  const sharePrompt = share.querySelector('p');
   const copy = success.querySelector('.rsvp-copy');
-  const incomingReferral = new URLSearchParams(location.search).get('ref') || '';
+  const query = new URLSearchParams(location.search);
+  const incomingReferral = query.get('ref') || '';
+  const preferredSession = query.get('session') === 'january' ? 'january' : 'attend';
   let mode = 'attend', trigger, submissionId, busy = false, shareMessage = '';
   function setMode(branch) {
     mode = branch;
@@ -36,10 +39,10 @@
     choices.disabled = newsletter;
     phoneField.hidden = newsletter;
     phone.disabled = newsletter;
-    phone.required = attend;
-    phoneLabel.textContent = attend ? 'Phone number *' : 'Phone number (optional)';
+    phone.required = !newsletter;
+    phoneLabel.textContent = 'Phone number *';
     help.hidden = newsletter;
-    help.textContent = attend ? 'For your 9 December door code and reminder.' : 'We’ll email you when January bookings open to arrange your complimentary session.';
+    help.textContent = attend ? 'For your 9 December door code and reminder.' : 'For when we announce January slots and for your door code on the day.';
     optIn.hidden = newsletter;
     form.elements.updates.disabled = newsletter;
     priorityConsent.hidden = !newsletter;
@@ -75,7 +78,7 @@
     start.addEventListener('submit', event => {
       event.preventDefault();
       if (!start.reportValidity()) return;
-      open('attend', start.elements.email.value.trim(), start.querySelector('button'));
+      open(preferredSession, start.elements.email.value.trim(), start.querySelector('button'));
     });
   });
   document.querySelectorAll('[data-rsvp-shortcut]').forEach(link => {
@@ -107,7 +110,7 @@
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (busy || !form.reportValidity()) return;
-    if (!name.value.trim() || (mode === 'attend' && !phone.value.trim())) {
+    if (!name.value.trim() || (mode !== 'updates' && !phone.value.trim())) {
       feedback.textContent = 'Please enter your name and phone number.';
       (!name.value.trim() ? name : phone).focus();
       return;
@@ -140,11 +143,18 @@
       title.textContent = attend ? 'You’re in!' : january ? 'Your January pass is yours.' : 'You’re on the list.';
       successTitle.textContent = attend ? 'See you on 9 December.' : january ? 'Your first January session is complimentary.' : 'We’ll keep you in the loop.';
       successText.textContent = attend ? 'We’ll email you the details before the preview. Doors open at 7:35 am at First Floor, 180 George Street, Sydney CBD.' : january ? 'We’ll email you when January bookings open so you can choose your session. No obligation to continue.' : 'Thanks for joining our newsletter. You can opt out anytime.';
-      share.hidden = !attend;
-      if (attend) {
-        const link = new URL('/free-preview/',location.origin);
+      share.hidden = !(attend || january);
+      if (attend || january) {
+        const link = new URL(january ? '/' : '/free-preview/',location.origin);
+        if (january) {
+          link.searchParams.set('session','january');
+          link.hash = 'hero-rsvp-email';
+        }
         if (result.referralCode) link.searchParams.set('ref',result.referralCode);
-        shareMessage = 'Hey! I got invited to a complimentary 30-minute founding preview of The First 30 on Wed 9 Dec (7:45–8:15 am) in Sydney CBD. I have a plus one. Want to come with me? RSVP here: ' + link.href;
+        sharePrompt.textContent = january ? 'Better together. Invite a friend to claim their own complimentary January session.' : 'And you have a plus one. Invite someone to join you.';
+        shareMessage = january
+          ? 'Hey! I’ve claimed a complimentary January session at The First 30 — a 30-minute mental fitness session before work in Sydney CBD. Want to come with me? Claim your own complimentary session here: ' + link.href
+          : 'Hey! I got invited to a complimentary 30-minute founding preview of The First 30 on Wed 9 Dec (7:45–8:15 am) in Sydney CBD. I have a plus one. Want to come with me? RSVP here: ' + link.href;
       }
       submissionId = undefined;
       form.reset();
