@@ -553,3 +553,20 @@ footer .footer-research-disclaimer {flex:0 0 100%;font-size:.73rem;line-height:1
  .homepage-rsvp-start input,#book .invitation-card .homepage-rsvp-start input,#book .invitation-card .homepage-rsvp-start .button,#final-cta .homepage-rsvp-start .button {width:100%;flex:auto}
  .homepage-rsvp-start input {font-size:16px}
 }
+
+/* Joined booking control and complimentary session choices */
+@media(min-width:601px) {
+  .homepage-rsvp-start {gap:0}
+  .homepage-rsvp-start input {border-radius:3px 0 0 3px;border-right:0}
+  .homepage-rsvp-start .button {border-radius:0 3px 3px 0}
+  .homepage-rsvp-start .button:hover {transform:none}
+  .homepage-rsvp-start input:focus-visible {position:relative;z-index:1;outline-offset:-2px}
+}
+#homepage-rsvp .rsvp-session-choices {border:0;padding:0;margin:0 0 18px;display:grid;gap:8px;min-width:0}
+#homepage-rsvp .rsvp-session-choices legend {font-weight:600;font-size:.84rem;margin-bottom:8px;padding:0}
+#homepage-rsvp .rsvp-session-option {display:flex;align-items:center;gap:10px;border:1px solid #a2b3a4;border-radius:3px;padding:11px 12px;cursor:pointer;line-height:1.4}
+#homepage-rsvp .rsvp-session-option:has(input:checked) {background:var(--sage);border-color:var(--ink)}
+#homepage-rsvp .rsvp-session-option input {flex:none;accent-color:var(--ink);width:18px;height:18px;margin:0}
+#homepage-rsvp .rsvp-session-option strong {font-size:.9rem}
+#homepage-rsvp .rsvp-session-option small {display:block;font-size:.76rem;color:#516658;margin-top:3px}
+#homepage-rsvp .rsvp-email-fallback {display:block;font-size:.82rem;text-decoration:underline;margin-bottom:8px}
