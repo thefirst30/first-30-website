@@ -13,7 +13,7 @@ function doPost(event) {
   const tokenPattern = /^[a-f0-9-]{36}$/i;
   const contactRequired = response !== 'no-follow-up';
   if (!tokenPattern.test(id) || (referredBy && !tokenPattern.test(referredBy)) ||
-      !['attend', 'updates', 'other-times', 'no-follow-up'].includes(response) ||
+      !['attend', 'january', 'updates', 'other-times', 'no-follow-up'].includes(response) ||
       name.length > 120 || email.length > 254 || phone.length > 40 ||
       (contactRequired && (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) ||
       (response === 'attend' && !phone)) {
@@ -34,12 +34,12 @@ function doPost(event) {
     const referrer = referredBy && find(7, referredBy) ? referredBy : '';
     const shareCode = contactRequired ? Utilities.getUuid() : '';
     const optIn = ['updates', 'other-times'].includes(response) ||
-      (response === 'attend' && input.updates === 'on');
+      (['attend', 'january'].includes(response) && input.updates === 'on');
     const safe = (value) => /^[=+@-]/.test(value) ? "'" + value : value;
     sheet.appendRow([
       new Date().toISOString(), safe(name), contactRequired ? safe(email) : '',
       contactRequired && phone ? "'" + phone : '', response, optIn, shareCode, referrer,
-      response === 'attend' ? 'To book' : '', id
+      response === 'attend' ? 'To book' : response === 'january' ? 'January pass — to arrange' : '', id
     ]);
     SpreadsheetApp.flush();
     return result({ok: true, referralCode: shareCode});
