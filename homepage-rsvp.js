@@ -49,6 +49,9 @@
     (email.value ? name : email).focus();
   }
   document.querySelectorAll('.homepage-rsvp-start').forEach(start => {
+    start.hidden = false;
+    const fallback = start.previousElementSibling;
+    if (fallback?.matches('.homepage-rsvp-fallback')) fallback.hidden = true;
     start.addEventListener('submit', event => {
       event.preventDefault();
       if (!start.reportValidity()) return;
