@@ -16,7 +16,7 @@ function doPost(event) {
       !['attend', 'january', 'updates', 'other-times', 'no-follow-up'].includes(response) ||
       name.length > 120 || email.length > 254 || phone.length > 40 ||
       (contactRequired && (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) ||
-      (response === 'attend' && !phone)) {
+      (['attend', 'january'].includes(response) && !phone)) {
     return result({ok: false});
   }
 
