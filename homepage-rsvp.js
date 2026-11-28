@@ -94,10 +94,11 @@
       field.focus({preventScroll:true});
     });
   });
-  const priority = document.querySelector('[data-rsvp-priority]');
-  priority?.addEventListener('click', event => {
-    event.preventDefault();
-    open('january', '', priority);
+  document.querySelectorAll('[data-rsvp-priority]').forEach(priority => {
+    priority.addEventListener('click', event => {
+      event.preventDefault();
+      open('january', '', priority);
+    });
   });
   document.querySelectorAll('[data-rsvp-newsletter]').forEach(link => {
     link.addEventListener('click', event => {
