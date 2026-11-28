@@ -6,7 +6,7 @@
 <h2 id="homepage-rsvp-title">A place for you.</h2>
 <p id="homepage-rsvp-description">Choose when you would like to experience The First 30.</p>
 <form>
-<fieldset class="rsvp-session-choices"><legend>Choose your complimentary session</legend><label class="rsvp-session-option"><input type="radio" name="session" value="attend" checked><span><strong>Wednesday 9 December</strong><small>7:45–8:15 am · Founding preview</small></span></label><label class="rsvp-session-option"><input type="radio" name="session" value="january"><span><strong>A session in January</strong><small>Choose a Wednesday when bookings open</small></span></label></fieldset>
+<fieldset class="rsvp-session-choices" hidden><legend>Session</legend><input type="radio" name="session" value="attend" checked><input type="radio" name="session" value="january"></fieldset><p class="rsvp-date" style="border-block:1px solid #829181;padding:12px 0;color:#e5d6b5;font-size:14px"></p>
 <label class="rsvp-field">Full name *<input name="name" autocomplete="name" required></label>
 <label class="rsvp-field">Email *<input name="email" type="email" autocomplete="email" required></label>
 <label class="rsvp-field"><span class="rsvp-phone-label">Phone number *</span><input name="phone" type="tel" autocomplete="tel" required></label>
@@ -15,7 +15,7 @@
 <p class="rsvp-priority-consent" hidden>By joining, you're signing up for occasional First 30 updates and free passes. You can opt out anytime.</p>
 <p role="alert"></p>
 <a class="rsvp-email-fallback" href="mailto:hello@thefirst30.com.au" hidden>Contact us by email</a>
-<button type="submit" class="button">Reserve my place</button>
+<button type="submit" class="button">Reserve my place</button><p class="rsvp-alternate" style="text-align:center;font-size:12px;margin:0 0 18px"><button type="button" style="background:none;border:0;color:#d1d8cc;text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer;padding:8px"></button></p>
 <p class="rsvp-privacy">See our <a href="/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
 </form>
 <div class="rsvp-success" hidden><h3 tabindex="-1"></h3><p class="rsvp-success-text"></p><div class="rsvp-calendar" hidden><a class="quiet-link" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20First%2030%20Founding%20Preview&amp;dates=20261208T204500Z%2F20261208T211500Z&amp;location=Level%201%2C%20180%20George%20Street%2C%20Sydney&amp;details=Doors%20open%207%3A35%20am%20Sydney%20time">Add to Google Calendar ↗</a> · <a target="_blank" rel="noopener" href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20First%2030%20Founding%20Preview&amp;startdt=2026-12-08T20%3A45%3A00Z&amp;enddt=2026-12-08T21%3A15%3A00Z&amp;location=Level%201%2C%20180%20George%20Street%2C%20Sydney">Outlook ↗</a></div><div class="rsvp-share"><p>And you have a plus one. Invite someone to join you.</p><button type="button" class="button rsvp-copy">Copy invitation message</button><p class="rsvp-share-status" role="status"></p></div></div>
@@ -55,8 +55,14 @@
     const attend = branch === 'attend';
     const newsletter = branch === 'updates';
     title.textContent = newsletter ? 'Stay in the loop.' : 'A place for you.';
-    description.textContent = newsletter ? 'Occasional First 30 updates and free passes.' : 'Choose when you would like to experience The First 30.';
-    choices.hidden = newsletter;
+    description.textContent = newsletter ? 'Occasional First 30 updates and free passes.' : attend ? 'Your complimentary founding preview.' : 'Your complimentary first session in January.';
+    const date = form.querySelector('.rsvp-date');
+    date.hidden = newsletter;
+    date.textContent = attend ? 'Wednesday 9 December · 7:45–8:15 am · 180 George Street, Sydney' : 'January 2027 · Wednesday mornings · Sydney CBD. Choose your date when bookings open.';
+    const alternate = form.querySelector('.rsvp-alternate');
+    alternate.hidden = newsletter;
+    alternate.querySelector('button').textContent = attend ? 'Can’t make 9 December? Join us in January.' : 'Prefer the 9 December founding preview?';
+    choices.hidden = true;
     choices.disabled = newsletter;
     phoneField.hidden = newsletter;
     phone.disabled = newsletter;
@@ -87,6 +93,13 @@
     (email.value ? name : email).focus();
   }
   document.querySelectorAll('[data-rsvp-direct]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); open(link.dataset.rsvpDirect === 'january' ? 'january' : 'attend', '', link); }));
+  form.querySelector('.rsvp-alternate button').addEventListener('click', () => {
+    if (busy) return;
+    const branch = mode === 'attend' ? 'january' : 'attend';
+    form.elements.session.value = branch;
+    submissionId = undefined;
+    setMode(branch);
+  });
   choices.addEventListener('change', () => {
     if (!busy && !choices.disabled) {
       submissionId = undefined;
